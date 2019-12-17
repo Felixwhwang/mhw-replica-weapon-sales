@@ -1,0 +1,20 @@
+.size {
+  object-fit: contain;
+  height: 30vh;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.cart {
+  font-size: 1.7rem;
+}
+
+.resize-none {
+  resize: none;
+}
+
+.checkout-form {
+  height: 81vh;
+}

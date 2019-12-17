@@ -1,0 +1,65 @@
+<?php
+
+$link = get_db_link();
+$cartIdinSession = $_SESSION['cart_id'];
+
+if($request['method'] === 'GET') {
+  if(isset($cartIdinSession)) {
+    $sqlCartItems =
+      "SELECT c.cartItemId, p.name, p.price, p.image, p.productId, p.shortDescription
+        FROM products AS p
+        JOIN cartItems AS c
+          ON p.productId = c.productId
+        WHERE c.cartId = $cartIdinSession";
+    $result = mysqli_fetch_all($link->query($sqlCartItems), MYSQLI_ASSOC);
+    $response['body'] = $result;
+  } else {
+    $response['body'] = [];
+  }
+
+  send($response);
+}
+
+if($request['method'] === 'POST') {
+  $id = intval($request['body']['productId']);
+  if (isset($id) && is_numeric($id) && $id !== 0) {
+    $sqlGetPrice =
+      "SELECT price FROM products WHERE products.productId = $id";
+    $priceAssoc = mysqli_fetch_assoc( $link->query($sqlGetPrice) );
+
+    if ($priceAssoc === null) {
+      throw new ApiError('No such product instock', 404);
+    } else {
+      $price = $priceAssoc['price'];
+
+      if(!isset($cartIdinSession)) {
+        $sqlInsertTime =
+          "INSERT INTO carts (createdAt) VALUES (CURRENT_TIMESTAMP)";
+        $link->query($sqlInsertTime);
+        $cartId = $link->insert_id;
+        $_SESSION['cart_id'] = $cartId;
+      } else {
+        $cartId = $cartIdinSession;
+      }
+
+      $sqlInsertIntoCartItems =
+        "INSERT INTO cartItems (cartId, productId, price) VALUES ($cartId, $id, $price)";
+      $link->query($sqlInsertIntoCartItems);
+      $cartItemId = $link->insert_id;
+
+      $sqlGetCartItem =
+        "SELECT c.cartItemId, p.productId, p.name, p.price, p.image, p.shortDescription
+        FROM products AS p
+        JOIN cartItems AS c
+          ON p.productId = c.productId
+        WHERE c.cartItemId = $cartItemId";
+      $addedItem = mysqli_fetch_assoc($link->query($sqlGetCartItem));
+
+      $response['body'] = $addedItem;
+    }
+  } else {
+    throw new ApiError('Something wrong with request query', 400);
+  }
+
+  send($response);
+}
