@@ -2,7 +2,7 @@ import React from 'react';
 
 export default class ProductListItem extends React.Component {
   handleClickItem() {
-    this.props.setView('details', { productId: this.props.item.productid });
+    this.props.setView('details', { productId: this.props.item.productId });
   }
 
   render() {
