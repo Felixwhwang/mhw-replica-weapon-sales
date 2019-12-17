@@ -4,7 +4,9 @@ import ProductListItem from './product-list-item';
 export default class ProductList extends React.Component {
   constructor() {
     super();
-    this.state = ({ array: [] });
+    this.state = ({
+      array: []
+    });
   }
 
   componentDidMount() {
@@ -21,17 +23,11 @@ export default class ProductList extends React.Component {
 
   render() {
     const items = [];
-    let row = [];
     this.state.array.forEach((cur, index) => {
-      row.push(<ProductListItem key={cur.productid} item={cur} setView={this.props.setView.bind(this)}/>);
-      if ((index + 1) % 3 === 0) {
-        items.push(
-          <div key={index + 1} className="row">
-            {row}
-          </div>
-        );
-        row = [];
-      }
+      items.push(<ProductListItem
+        key={cur.productId}
+        item={cur}
+        setView={this.props.setView.bind(this)}/>);
     });
     return (
       <div className="container">

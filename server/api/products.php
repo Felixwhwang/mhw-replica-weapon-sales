@@ -29,7 +29,7 @@ function get_product_by_id($link, $id){
 
 function get_products($link)
 {
-  $sql = 'SELECT productid, name, price, image, shortDescription FROM products';
+  $sql = 'SELECT productId, name, price, image, shortDescription FROM products';
   $result = $link->query($sql);
   return mysqli_fetch_all($result, MYSQLI_ASSOC);
 }
