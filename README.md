@@ -55,3 +55,5 @@ A web application for selling game replica weapon.
     ```bash
     $npm run dev
     ```
+### Live Demo
+The application live at https://gameweaponsales.wenhaowang.net/
