@@ -31,7 +31,9 @@ export default class ProductList extends React.Component {
     });
     return (
       <div className="container">
-        {items}
+        <div className="row">
+          {items}
+        </div>
       </div>
     );
   }

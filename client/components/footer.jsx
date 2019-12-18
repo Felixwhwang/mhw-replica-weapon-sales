@@ -5,7 +5,7 @@ export default class Footer extends React.Component {
     return (
       <footer className="bg-dark mt-4">
         <div className="footer-copyright text-center py-3 text-white">
-           © 2019 Copyright: Wicked Sales
+           © 2019 Copyright: Game Weapon Sales
         </div>
       </footer>
     );

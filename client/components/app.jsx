@@ -96,7 +96,6 @@ export default class App extends React.Component {
             <Header cartItems={this.state.cart.length}
               setView={this.setView.bind(this)}/>
             <CartSummary setView={this.setView.bind(this)} cart={this.state.cart}/>
-            <Footer />
           </div>
         );
       case 'checkout':

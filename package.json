@@ -1,13 +1,15 @@
 {
-  "name": "mhw-replica-weapon-sales",
+  "name": "game-weapon-sales",
   "version": "1.0.0",
   "private": true,
-  "description": "A full stack React replica mhw weapon shopping cart app.",
+  "description": "A full stack React game replica weapon shopping cart app.",
   "scripts": {
     "build": "webpack --mode=production",
     "dev": "npm-run-all --silent --parallel dev:*",
     "dev:client": "webpack-dev-server",
-    "dev:server": "php -S '0.0.0.0:9000' -t server/public -c php.ini"
+    "dev:server": "php -S '0.0.0.0:9000' -t server/public -c php.ini",
+    "db:export": "php database/export.php",
+    "db:import": "php database/import.php"
   },
   "husky": {
     "hooks": {
@@ -98,13 +100,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Felixwhwang/mhw-replica-weapon-sales.git"
+    "url": "git+https://github.com/Felixwhwang/game-weapon-sales.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Felixwhwang/mhw-replica-weapon-sales/issues"
+    "url": "https://github.com/Felixwhwang/game-weapon-sales/issues"
   },
-  "homepage": "https://github.com/Felixwhwang/mhw-replica-weapon-sales#readme"
+  "homepage": "https://github.com/Felixwhwang/game-weapon-sales#readme"
 }
