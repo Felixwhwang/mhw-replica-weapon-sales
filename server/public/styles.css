@@ -1,3 +1,7 @@
+a {
+  text-decoration: none !important;
+}
+
 .size {
   object-fit: contain;
   height: 30vh;

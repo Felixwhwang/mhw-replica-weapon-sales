@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class CartSummaryItems extends React.Component {
   render() {
@@ -16,17 +17,12 @@ class CartSummaryItems extends React.Component {
 }
 
 export default class CartSummary extends React.Component {
-  handleClickBack() {
-    this.props.setView('catalog', {});
-  }
-
   handleClickOrder() {
-    if (this.props.cart.length !== 0) {
-      this.props.setView('checkout', {});
-    }
+    this.props.history.push('/checkout');
   }
 
   render() {
+    const checkoutStatus = this.props.cart.length === 0;
     let total = null;
     const itemRows = this.props.cart.map(cur => {
       total += cur.price;
@@ -34,14 +30,21 @@ export default class CartSummary extends React.Component {
     });
     return (
       <div className="container">
-        <div onClick={this.handleClickBack.bind(this)} className="pointer mb-2 text-muted">{'<  '}Back to catalog</div>
+        <Link to={'/'}>
+          <div className="pointer mb-2 text-muted">{'<  '}Back to catalog</div>
+        </Link>
         <h2>My Cart</h2>
         <div className="row">
           {itemRows}
         </div>
         <div className="d-flex justify-content-between">
           <h3>Item Total ${(total / 100).toFixed(2)}</h3>
-          <button type="button" className="btn btn-primary" onClick={this.handleClickOrder.bind(this)}>Check Out</button>
+          <button
+            type="button"
+            className="btn btn-primary"
+            disabled={checkoutStatus}
+            onClick={this.handleClickOrder.bind(this)}>Check Out
+          </button>
         </div>
       </div>
     );
