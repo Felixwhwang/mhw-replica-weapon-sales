@@ -30,7 +30,7 @@ All devices oriented.
 
     ```bash
     $git clone https://github.com/Felixwhwang/game-weapon-sales.git
-    $cd soulmate
+    $cd game-weapon-sales
     ```
 2. Install all dependencies with NPM.
 
