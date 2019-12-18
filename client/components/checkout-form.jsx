@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default class CheckoutForm extends React.Component {
   constructor() {
@@ -10,10 +11,6 @@ export default class CheckoutForm extends React.Component {
     };
   }
 
-  handleClickContinue() {
-    this.props.setView('catalog', {});
-  }
-
   handleClickOrder(event) {
     event.preventDefault();
     const checkoutInfo = {
@@ -22,6 +19,7 @@ export default class CheckoutForm extends React.Component {
       shippingAddress: this.state.shippingAddress
     };
     this.props.placeOrder(checkoutInfo);
+    this.props.history.push('/');
   }
 
   handleOnChange(event) {
@@ -73,12 +71,14 @@ export default class CheckoutForm extends React.Component {
               required/>
           </div>
           <div className="d-flex justify-content-between align-items-center">
-            <div
-              onClick={this.handleClickContinue.bind(this)}
-              className="pointer mb-2 text-muted">{'<  '}Back to catalog</div>
+            <Link to={'/'}>
+              <div className="pointer mb-2 text-muted">{'<  '}Back to catalog</div>
+            </Link>
             <button
               type="submit"
-              className="btn btn-primary">Place Order</button>
+              className="btn btn-primary">
+                Place Order
+            </button>
           </div>
         </form>
       </div>

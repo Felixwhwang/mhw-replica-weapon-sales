@@ -1,11 +1,11 @@
 <?php
 if ($request['method'] === 'GET') {
   $link = get_db_link();
-  $id = intval($request['query']['productId']);
 
   if(empty($request['query'])) {
     $data = get_products($link);
   } else {
+    $id = intval($request['query']['productId']);
     $data = get_product_by_id($link, $id);
   }
 

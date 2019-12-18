@@ -1,10 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default class Header extends React.Component {
-  handleClickCart() {
-    this.props.setView('cart', {});
-  }
-
   render() {
     let cartItems = '';
     const numbers = this.props.cartItems;
@@ -17,9 +14,11 @@ export default class Header extends React.Component {
       <nav className="navbar navbar-light bg-dark text-white mb-3">
         <div className="container">
           <h3>Game Weapon Sales</h3>
-          <div className="pointer" onClick={this.handleClickCart.bind(this)}>
-            {cartItems}<i className="fas fa-shopping-cart cart"></i>
-          </div>
+          <Link to={'/cart'}>
+            <div className="pointer text-white">
+              {cartItems}<i className="fas fa-shopping-cart cart"></i>
+            </div>
+          </Link>
         </div>
       </nav>
     );

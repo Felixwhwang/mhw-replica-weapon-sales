@@ -4,7 +4,7 @@ import ProductList from './product-list';
 import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
-import Footer from './footer';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 export default class App extends React.Component {
   constructor() {
@@ -46,6 +46,14 @@ export default class App extends React.Component {
       }).catch(err => alert('placeOrder error', err));
   }
 
+  setView(name, params) {
+    const view = {
+      name,
+      params
+    };
+    this.setState({ view });
+  }
+
   addToCart(product) {
     const req = {
       method: 'POST',
@@ -59,57 +67,24 @@ export default class App extends React.Component {
       }).catch(err => alert('addToCart error', err));
   }
 
-  setView(name, params) {
-    const view = {
-      name,
-      params
-    };
-    this.setState({ view });
-  }
-
   render() {
-    switch (this.state.view.name) {
-      case 'details':
-        return (
-          <div>
-            <Header cartItems={this.state.cart.length}
-              setView={this.setView.bind(this)}/>
-            <ProductDetails
-              id={this.state.view.params.productId}
-              setView={this.setView.bind(this)}
-              addToCart={this.addToCart.bind(this)}/>
-            <Footer />
-          </div>
-        );
-      case 'catalog':
-        return (
-          <div>
-            <Header cartItems={this.state.cart.length}
-              setView={this.setView.bind(this)}/>
-            <ProductList setView={this.setView.bind(this)}/>
-            <Footer />
-          </div>
-        );
-      case 'cart':
-        return (
-          <div>
-            <Header cartItems={this.state.cart.length}
-              setView={this.setView.bind(this)}/>
-            <CartSummary setView={this.setView.bind(this)} cart={this.state.cart}/>
-          </div>
-        );
-      case 'checkout':
-        return (
-          <div>
-            <Header cartItems={this.state.cart.length}
-              setView={this.setView.bind(this)}/>
-            <CheckoutForm
-              setView={this.setView.bind(this)}
+    return (
+      <Router>
+        <Header cartItems={this.state.cart.length} />
+        <Switch>
+          <Route exact path="/" component={ProductList} />
+          <Route path="/item/:productId"
+            render={props => <ProductDetails {...props}
+              addToCart={this.addToCart.bind(this)} />} />
+          <Route path="/cart"
+            render={props => <CartSummary {...props}
+              cart={this.state.cart} />} />
+          <Route path="/checkout"
+            render={props => <CheckoutForm {...props}
               cart={this.state.cart}
-              placeOrder={this.placeOrder.bind(this)}/>
-            <Footer />
-          </div>
-        );
-    }
+              placeOrder={this.placeOrder.bind(this)} />} />
+        </Switch>
+      </Router>
+    );
   }
 }

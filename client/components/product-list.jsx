@@ -1,5 +1,6 @@
 import React from 'react';
 import ProductListItem from './product-list-item';
+import Footer from './footer';
 
 export default class ProductList extends React.Component {
   constructor() {
@@ -27,13 +28,16 @@ export default class ProductList extends React.Component {
       items.push(<ProductListItem
         key={cur.productId}
         item={cur}
-        setView={this.props.setView.bind(this)}/>);
+      />);
     });
     return (
-      <div className="container">
-        <div className="row">
-          {items}
+      <div>
+        <div className="container">
+          <div className="row">
+            {items}
+          </div>
         </div>
+        <Footer />
       </div>
     );
   }
