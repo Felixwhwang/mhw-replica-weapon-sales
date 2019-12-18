@@ -1,6 +1,8 @@
 # Game Weapon Sales
 A web application for selling game replica weapon.
 
+All devices oriented.
+
 ## Technologies Used
 - React.js
 - Webpack 4
@@ -55,5 +57,9 @@ A web application for selling game replica weapon.
     ```bash
     $npm run dev
     ```
+
+### Preview
+![sales](https://user-images.githubusercontent.com/31264160/71121098-ad738080-21d5-11ea-8af5-85cb9d2178c4.gif)
+
 ### Live Demo
 The application live at https://gameweaponsales.wenhaowang.net/
