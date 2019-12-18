@@ -21,7 +21,9 @@ export default class CartSummary extends React.Component {
   }
 
   handleClickOrder() {
-    this.props.setView('checkout', {});
+    if (this.props.cart.length !== 0) {
+      this.props.setView('checkout', {});
+    }
   }
 
   render() {
@@ -32,10 +34,12 @@ export default class CartSummary extends React.Component {
     });
     return (
       <div className="container">
-        <div onClick={this.handleClickBack.bind(this)} className="pointer mb-2 text-muted row">{'<  '}Back to catalog</div>
-        <h2 className="row">My Cart</h2>
-        {itemRows}
-        <div className="row d-flex justify-content-between">
+        <div onClick={this.handleClickBack.bind(this)} className="pointer mb-2 text-muted">{'<  '}Back to catalog</div>
+        <h2>My Cart</h2>
+        <div className="row">
+          {itemRows}
+        </div>
+        <div className="d-flex justify-content-between">
           <h3>Item Total ${(total / 100).toFixed(2)}</h3>
           <button type="button" className="btn btn-primary" onClick={this.handleClickOrder.bind(this)}>Check Out</button>
         </div>

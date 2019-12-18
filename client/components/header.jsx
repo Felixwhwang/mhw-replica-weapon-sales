@@ -16,7 +16,7 @@ export default class Header extends React.Component {
     return (
       <nav className="navbar navbar-light bg-dark text-white mb-3">
         <div className="container">
-          <h3>$Wicked Sales</h3>
+          <h3>Game Weapon Sales</h3>
           <div className="pointer" onClick={this.handleClickCart.bind(this)}>
             {cartItems}<i className="fas fa-shopping-cart cart"></i>
           </div>
