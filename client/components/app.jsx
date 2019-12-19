@@ -73,7 +73,7 @@ export default class App extends React.Component {
         <Header cartItems={this.state.cart.length} />
         <Switch>
           <Route exact path="/" component={ProductList} />
-          <Route path="/item/:productId"
+          <Route exact path="/item/:productId"
             render={props => <ProductDetails {...props}
               addToCart={this.addToCart.bind(this)} />} />
           <Route path="/cart"
