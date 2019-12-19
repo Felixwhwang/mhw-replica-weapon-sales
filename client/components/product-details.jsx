@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 export default class ProductDetails extends React.Component {
   constructor(props) {
     super(props);
-    this.state = ({ product: '' });
+    this.state = ({
+      product: ''
+    });
   }
 
   componentDidMount() {
@@ -12,8 +14,9 @@ export default class ProductDetails extends React.Component {
   }
 
   getProductById() {
-    const { match: { params } } = this.props;
-    fetch(`/api/products?productId=${params.productId}`)
+    const { search } = this.props.location;
+    const productId = search.split('?').pop();
+    fetch(`/api/products?productId=${productId}`)
       .then(res => res.json())
       .then(product => {
         this.setState({ product });
