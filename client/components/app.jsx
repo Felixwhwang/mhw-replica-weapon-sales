@@ -73,7 +73,7 @@ export default class App extends React.Component {
         <Header cartItems={this.state.cart.length} />
         <Switch>
           <Route exact path="/" component={ProductList} />
-          <Route exact path="/item/:productId"
+          <Route path="/item"
             render={props => <ProductDetails {...props}
               addToCart={this.addToCart.bind(this)} />} />
           <Route path="/cart"
@@ -83,6 +83,7 @@ export default class App extends React.Component {
             render={props => <CheckoutForm {...props}
               cart={this.state.cart}
               placeOrder={this.placeOrder.bind(this)} />} />
+          <Route path="/" render={() => <div>error</div>} />
         </Switch>
       </Router>
     );
