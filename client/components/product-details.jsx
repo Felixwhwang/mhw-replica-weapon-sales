@@ -39,6 +39,15 @@ export default class ProductDetails extends React.Component {
             <h2>{this.state.product.name}</h2>
             <label className="text-muted">${(this.state.product.price / 100).toFixed(2)}</label>
             <p>{this.state.product.shortDescription}</p>
+
+            <div className="mb-2">
+              <div>Item Quantity:</div>
+              <select className="d-block" id="exampleFormControlSelect2">
+                <option value='1'>1</option>
+                <option value='2'>2</option>
+              </select>
+            </div>
+
             <button
               type="button"
               className="btn btn-primary"
