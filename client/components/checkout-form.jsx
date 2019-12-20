@@ -50,7 +50,8 @@ export default class CheckoutForm extends React.Component {
   }
 
   render() {
-    const total = this.props.cart.reduce((acc, cur) => acc + cur.price, 0);
+    const total = this.props.cart.reduce(
+      (acc, cur) => acc + cur.price * cur.quantity, 0);
     return (
       <div>
         <div className="container basic-bg p-3">
