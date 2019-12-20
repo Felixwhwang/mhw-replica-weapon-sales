@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom';
 export default class Header extends React.Component {
   render() {
     let cartItems = '';
-    const numbers = this.props.cartItems;
+    const numbers = this.props.cartItems.reduce((sum, cur) => {
+      return sum + cur.quantity;
+    }, 0);
     if (numbers < 2) {
       cartItems = `${numbers} item`;
     } else {

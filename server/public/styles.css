@@ -1,5 +1,8 @@
-a {
-  text-decoration: none !important;
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
 }
 
 .size {
@@ -21,4 +24,9 @@ a {
 
 .checkout-form {
   height: 84.4vh;
+}
+
+.input-quantity {
+  width: 35px;
+  border-radius: 5px;
 }

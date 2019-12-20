@@ -6,7 +6,7 @@ $cartIdinSession = $_SESSION['cart_id'];
 if($request['method'] === 'GET') {
   if(isset($cartIdinSession)) {
     $sqlCartItems =
-      "SELECT c.cartItemId, p.name, p.price, p.image, p.productId, p.shortDescription
+      "SELECT c.cartItemId, c.quantity, p.name, p.price, p.image, p.productId, p.shortDescription
         FROM products AS p
         JOIN cartItems AS c
           ON p.productId = c.productId
@@ -21,6 +21,7 @@ if($request['method'] === 'GET') {
 }
 
 if($request['method'] === 'POST') {
+  $quantity = intval($request['body']['quantity']);
   $id = intval($request['body']['productId']);
   if (isset($id) && is_numeric($id) && $id !== 0) {
     $sqlGetPrice =
@@ -42,13 +43,36 @@ if($request['method'] === 'POST') {
         $cartId = $cartIdinSession;
       }
 
-      $sqlInsertIntoCartItems =
-        "INSERT INTO cartItems (cartId, productId, price) VALUES ($cartId, $id, $price)";
-      $link->query($sqlInsertIntoCartItems);
-      $cartItemId = $link->insert_id;
+      $sqlCheckItem=
+        "SELECT quantity, cartItemId
+         FROM cartItems
+         WHERE productId = $id AND cartId = $cartId";
+      $item = mysqli_fetch_assoc($link->query($sqlCheckItem));
+      if($item['quantity']) {
+        $cartItemId = $item['cartItemId'];
+        $quantity = $item['quantity'] + $quantity;
+        $sqlUpdateQuantity=
+        "UPDATE cartItems
+         SET quantity = $quantity
+         WHERE cartItemId = $cartItemId";
+        $link->query($sqlUpdateQuantity);
+      } else {
+        $sqlInsertIntoCartItems =
+        "INSERT INTO cartItems (cartId, productId, price, quantity)
+         VALUES ($cartId, $id, $price, $quantity)";
+        $link->query($sqlInsertIntoCartItems);
+        $cartItemId = $link->insert_id;
+      }
 
       $sqlGetCartItem =
-        "SELECT c.cartItemId, p.productId, p.name, p.price, p.image, p.shortDescription
+        "SELECT c.cartItemId,
+                c.cartId,
+                p.productId,
+                p.name,
+                p.price,
+                p.image,
+                p.shortDescription,
+                c.quantity
         FROM products AS p
         JOIN cartItems AS c
           ON p.productId = c.productId
