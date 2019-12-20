@@ -37,7 +37,7 @@ export default class CartSummary extends React.Component {
         <div className="row">
           {itemRows}
         </div>
-        <div className="d-flex justify-content-between">
+        <div className="d-flex justify-content-between mb-5">
           <h3>Item Total ${(total / 100).toFixed(2)}</h3>
           <button
             type="button"
