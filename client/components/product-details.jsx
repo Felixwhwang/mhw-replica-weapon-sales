@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import AddModal from './add-modal';
 
 export default class ProductDetails extends React.Component {
   constructor(props) {
@@ -35,39 +36,46 @@ export default class ProductDetails extends React.Component {
   }
 
   render() {
-    // let options = [];
-    // for(let index = 0; index < 30)
+    const options = [];
+    for (let index = 1; index < 11; index++) {
+      options.push(<option key={index} value={index}>{index}</option>);
+    }
     return (
-      <div className="container bg-white border p-4">
-        <Link to={'/'}>
-          <div className="pointer mb-2 text-muted">{'<  '}Back to catalog</div>
-        </Link>
-        <div className="row">
-          <img src={`../${this.state.product.image}`} className="col-5 size"/>
-          <div className="col-7">
-            <h2>{this.state.product.name}</h2>
-            <label className="text-muted">${(this.state.product.price / 100).toFixed(2)}</label>
-            <p>{this.state.product.shortDescription}</p>
+      <div>
+        <div className="container bg-white border p-4">
+          <Link to={'/'}>
+            <div className="pointer mb-2 text-muted">{'<  '}Back to catalog</div>
+          </Link>
+          <div className="row">
+            <img src={`../${this.state.product.image}`} className="col-5 size" />
+            <div className="col-7">
+              <h2>{this.state.product.name}</h2>
+              <label className="text-muted">${(this.state.product.price / 100).toFixed(2)}</label>
+              <p>{this.state.product.shortDescription}</p>
 
-            <div className="mb-2">
-              <div>Item Quantity:</div>
-              <select
-                className="d-block"
-                onChange={this.quantityOnChange.bind(this)}>
+              <div className="mb-2">
+                <div>Item Quantity:</div>
+                <select
+                  className="d-block"
+                  onChange={this.quantityOnChange.bind(this)}>
+                  {options}
+                </select>
+              </div>
 
-                <option value='1'>1</option>
-                <option value='2'>2</option>
-              </select>
+              <button
+                type="button"
+                className="btn btn-primary"
+                data-toggle="modal"
+                data-target="#addmodal"
+                data-backdrop="static"
+                data-keyboard="false"
+                onClick={this.handleClickAdd.bind(this)}>Add to Cart
+              </button>
             </div>
-
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={this.handleClickAdd.bind(this)}>Add to Cart
-            </button>
           </div>
+          <p className="mt-3">{this.state.product.longDescription}</p>
         </div>
-        <p className="mt-3">{this.state.product.longDescription}</p>
+        <AddModal history={this.props.history}/>
       </div>
     );
   }

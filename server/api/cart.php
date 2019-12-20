@@ -6,7 +6,7 @@ $cartIdinSession = $_SESSION['cart_id'];
 if($request['method'] === 'GET') {
   if(isset($cartIdinSession)) {
     $sqlCartItems =
-      "SELECT c.cartItemId, p.name, p.price, p.image, p.productId, p.shortDescription
+      "SELECT c.cartItemId, c.quantity, p.name, p.price, p.image, p.productId, p.shortDescription
         FROM products AS p
         JOIN cartItems AS c
           ON p.productId = c.productId

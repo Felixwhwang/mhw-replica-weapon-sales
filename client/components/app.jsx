@@ -63,14 +63,26 @@ export default class App extends React.Component {
     fetch('/api/cart', req)
       .then(res => res.json())
       .then(item => {
-        this.setState({ cart: this.state.cart.concat(item) });
+        let checkItemExist = false;
+        const cart = this.state.cart.map(cur => {
+          if (item.productId === cur.productId) {
+            cur.quantity = item.quantity;
+            checkItemExist = true;
+          }
+          return cur;
+        });
+        if (checkItemExist) {
+          this.setState({ cart });
+        } else {
+          this.setState({ cart: this.state.cart.concat(item) });
+        }
       }).catch(err => alert('addToCart error', err));
   }
 
   render() {
     return (
       <Router>
-        <Header cartItems={this.state.cart.length} />
+        <Header cartItems={this.state.cart} />
         <Switch>
           <Route exact path="/" component={ProductList} />
           <Route path="/item"
