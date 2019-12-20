@@ -13,9 +13,11 @@ export default class Header extends React.Component {
       cartItems = `${numbers} items`;
     }
     return (
-      <nav className="navbar navbar-light bg-dark text-white mb-3">
+      <nav className="navbar navbar-light bg-dark text-white mb-3 nav-bg">
         <div className="container">
-          <h3>Game Weapon Sales</h3>
+          <Link to={'/'}>
+            <div className="logo">Game Weapon Sales</div>
+          </Link>
           <Link to={'/cart'}>
             <div className="pointer text-white">
               {cartItems}<i className="fas fa-shopping-cart cart"></i>

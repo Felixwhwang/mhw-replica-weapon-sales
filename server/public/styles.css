@@ -5,6 +5,71 @@ button:focus {
     outline: none;
 }
 
+.my-cart {
+  font-size: 2em;
+  color: white;
+}
+
+.border-black {
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: .25rem;
+  animation: blur 3s infinite;
+}
+
+.basic-bg {
+  border: 2px solid rgb(0, 0, 0);
+  background-color: white;
+  border-radius: 2px;
+}
+
+.card {
+  border: 2px solid rgb(0, 0, 0);
+  border-radius: .25rem;
+  animation: blur 3s infinite;
+}
+
+@keyframes blur {
+  0% {
+    box-shadow: 1px 1px 1px 0px black;
+  }
+  50% {
+    box-shadow: 1px 1px 15px 0px black;
+  }
+  100% {
+    box-shadow: 1px 1px 1px 0px black;
+  }
+}
+
+.card-bot {
+  background-color: #4848486b;
+}
+
+.bg {
+  background-image: url('./images/rock.jpg');
+}
+
+a, a:hover {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+.logo {
+  font-family: 'Dancing Script', cursive;
+  font-size: 3em;
+  text-shadow: 1px 1px 4px #ffffff;
+}
+
+.nav-bg, .footer {
+  height: 10vh;
+  background-image: url('images/fire.gif');
+  background-size: cover;
+  opacity: 0.9;
+}
+
+.footer {
+  height: 7vh;
+}
+
 .size {
   object-fit: contain;
   height: 30vh;
@@ -25,4 +90,31 @@ button:focus {
 .input-quantity {
   width: 35px;
   border-radius: 5px;
+}
+
+.form-view {
+  height: 73vh;
+}
+
+.label {
+  margin-bottom: 0;
+}
+
+.form-img {
+  width: 100%;
+  height: 32vh;
+  margin-top: 1vh;
+  border-radius: 10px;
+  background-image: url('./images/forge.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@media only screen and (max-width: 375px) {
+  .logo {
+    font-size: 1.7em;
+  }
+  .form-img {
+    height: 24vh;
+  }
 }
