@@ -1,4 +1,5 @@
 import React from 'react';
+import RemoveModal from './remove-modal';
 import { Link } from 'react-router-dom';
 
 class CartSummaryItems extends React.Component {
@@ -15,7 +16,7 @@ class CartSummaryItems extends React.Component {
     if (qty > 0 && qty.indexOf('.') === -1) {
       this.setState({
         quantity: qty,
-        qtyValidation: ''
+        qtyValidation: ' '
       });
     } else {
       this.setState({
@@ -28,8 +29,8 @@ class CartSummaryItems extends React.Component {
   render() {
     return (
       <div className="row border mb-4 bg-white shadow-sm p-3">
-        <img src={this.props.item.image} className="col-5 size" />
-        <div className="col-7">
+        <img src={this.props.item.image} className="col-12 col-md-5 size" />
+        <div className="col-12 col-md-7">
           <h2>{this.props.item.name}</h2>
           <label className="text-muted">${(this.props.item.price / 100).toFixed(2)}</label>
           <p>{this.props.item.shortDescription}</p>
@@ -39,7 +40,15 @@ class CartSummaryItems extends React.Component {
             type="text"
             value={this.state.quantity}
             onChange={this.quantityOnChange.bind(this)} />
-          <div className="text-danger">{this.state.qtyValidation}</div>
+          <div className="text-danger">{this.state.qtyValidation}&nbsp;</div>
+          <button
+            type="button"
+            className="btn btn-danger"
+            data-toggle="modal"
+            data-target="#removemodal"
+            data-backdrop="static"
+            data-keyboard="false">Remove
+          </button>
         </div>
       </div>
     );
@@ -64,7 +73,7 @@ export default class CartSummary extends React.Component {
           <div className="pointer mb-2 text-muted">{'<  '}Back to catalog</div>
         </Link>
         <h2>My Cart</h2>
-        <div>
+        <div className="container">
           {itemRows}
         </div>
         <div className="d-flex justify-content-between mb-5">
@@ -76,6 +85,7 @@ export default class CartSummary extends React.Component {
             onClick={this.handleClickOrder.bind(this)}>Check Out
           </button>
         </div>
+        <RemoveModal />
       </div>
     );
   }

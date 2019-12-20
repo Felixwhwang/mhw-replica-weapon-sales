@@ -5,6 +5,7 @@ import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import NotificationModal from './notification-modal';
 
 export default class App extends React.Component {
   constructor() {
@@ -97,6 +98,7 @@ export default class App extends React.Component {
               placeOrder={this.placeOrder.bind(this)} />} />
           <Route path="/" render={() => <div>error</div>} />
         </Switch>
+        <NotificationModal />
       </Router>
     );
   }
