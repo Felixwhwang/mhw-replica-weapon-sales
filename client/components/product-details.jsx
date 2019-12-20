@@ -19,6 +19,7 @@ export default class ProductDetails extends React.Component {
     fetch(`/api/products?productId=${productId}`)
       .then(res => res.json())
       .then(product => {
+        product.quantity = 1;
         this.setState({ product });
       }).catch(err => alert('getProductById error', err));
   }
@@ -27,7 +28,15 @@ export default class ProductDetails extends React.Component {
     this.props.addToCart(this.state.product);
   }
 
+  quantityOnChange(event) {
+    const { product } = this.state;
+    product.quantity = event.target.value;
+    this.setState({ product });
+  }
+
   render() {
+    // let options = [];
+    // for(let index = 0; index < 30)
     return (
       <div className="container bg-white border p-4">
         <Link to={'/'}>
@@ -42,7 +51,10 @@ export default class ProductDetails extends React.Component {
 
             <div className="mb-2">
               <div>Item Quantity:</div>
-              <select className="d-block" id="exampleFormControlSelect2">
+              <select
+                className="d-block"
+                onChange={this.quantityOnChange.bind(this)}>
+
                 <option value='1'>1</option>
                 <option value='2'>2</option>
               </select>
