@@ -37,7 +37,7 @@ class CartSummaryItems extends React.Component {
       this.state.quantity === ''
         ? 'd-none' : '';
     return (
-      <div className="row border mb-4 bg-white shadow-sm p-3">
+      <div className="row border-black mb-4 bg-white shadow-sm p-3">
         <img src={this.props.item.image} className="col-12 col-md-5 size" />
         <div className="col-12 col-md-7">
           <h2>{this.props.item.name}</h2>
@@ -103,17 +103,17 @@ export default class CartSummary extends React.Component {
     return (
       <div className="container">
         <Link to={'/'}>
-          <div className="pointer mb-2 text-muted">{'<  '}Back to catalog</div>
+          <div className="pointer mb-2 text-white">{'<  '}Back to catalog</div>
         </Link>
-        <h2>My Cart</h2>
+        <div className="my-cart">My Cart</div>
         <div className="container">
           {itemRows}
         </div>
-        <div className="d-flex justify-content-between mb-5">
-          <h3>Item Total ${(total / 100).toFixed(2)}</h3>
+        <div className="d-flex justify-content-between align-items-center mb-5">
+          <div className="bg-white border-black p-2">Item Total ${(total / 100).toFixed(2)}</div>
           <button
             type="button"
-            className="btn btn-primary"
+            className="btn btn-primary ml-1"
             disabled={checkoutStatus}
             onClick={this.handleClickOrder.bind(this)}>Check Out
           </button>

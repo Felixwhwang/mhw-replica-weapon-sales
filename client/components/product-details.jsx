@@ -42,7 +42,7 @@ export default class ProductDetails extends React.Component {
     }
     return (
       <div>
-        <div className="container bg-white border p-4">
+        <div className="container bg-white border-black p-4">
           <Link to={'/'}>
             <div className="pointer mb-2 text-muted">{'<  '}Back to catalog</div>
           </Link>
