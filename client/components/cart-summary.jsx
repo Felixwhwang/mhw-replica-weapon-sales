@@ -16,7 +16,7 @@ class CartSummaryItems extends React.Component {
     if (qty > 19 && qty.indexOf('.') === -1) {
       this.setState({
         quantity: 19,
-        qtyValidation: 'Ask Wenhao for wholesales if more than 19, Cheaper!'
+        qtyValidation: 'Ask Wenhao for wholesales if more than 19'
       });
     } else if (qty > 0 && qty.indexOf('.') === -1) {
       this.setState({
@@ -26,12 +26,16 @@ class CartSummaryItems extends React.Component {
     } else {
       this.setState({
         quantity: '',
-        qtyValidation: 'Item quantity cannot be empty'
+        qtyValidation: 'Leave empty will still count as original quantity'
       });
     }
   }
 
   render() {
+    const display =
+      this.props.item.quantity === parseInt(this.state.quantity) ||
+      this.state.quantity === ''
+        ? 'd-none' : '';
     return (
       <div className="row border mb-4 bg-white shadow-sm p-3">
         <img src={this.props.item.image} className="col-12 col-md-5 size" />
@@ -56,6 +60,16 @@ class CartSummaryItems extends React.Component {
               data-keyboard="false">Remove
             </button>
           </Link>
+          <button
+            type="button"
+            className={`btn btn-success ml-2 ${display}`}
+            onClick={() => this.props.updateItem(
+              {
+                cartItemId: this.props.item.cartItemId,
+                quantity: this.state.quantity
+              }
+            )}>Update
+          </button>
         </div>
       </div>
     );
@@ -81,7 +95,10 @@ export default class CartSummary extends React.Component {
     let total = null;
     const itemRows = this.props.cart.map(cur => {
       total += cur.quantity * cur.price;
-      return <CartSummaryItems key={cur.cartItemId} item={cur}/>;
+      return <CartSummaryItems
+        key={cur.cartItemId}
+        item={cur}
+        updateItem={this.props.updateItem} />;
     });
     return (
       <div className="container">
