@@ -22,10 +22,6 @@ button:focus {
   resize: none;
 }
 
-.checkout-form {
-  height: 84.4vh;
-}
-
 .input-quantity {
   width: 35px;
   border-radius: 5px;

@@ -3,6 +3,25 @@
 $link = get_db_link();
 $cartIdinSession = $_SESSION['cart_id'];
 
+if($request['method'] === 'PUT') {
+  $cartItemId = intval($request['body']['cartItemId']);
+  $quantity = intval($request['body']['quantity']);
+  $sqlUpdateCart =
+  "UPDATE cartItems
+   SET quantity = $quantity
+   WHERE cartItemId = $cartItemId";
+   $link->query($sqlUpdateCart);
+
+  $sqlGetItem=
+  "SELECT cartItemId, quantity
+   FROM cartItems
+   WHERE cartItemId = $cartItemId";
+  $cartItem = mysqli_fetch_assoc($link->query($sqlGetItem));
+
+   $response['body'] = $cartItem;
+   send($response);
+}
+
 if ($request['method'] === 'DELETE') {
   $cartItemId = intval($request['body']['cartItemId']);
   $sqlDeleteItem =

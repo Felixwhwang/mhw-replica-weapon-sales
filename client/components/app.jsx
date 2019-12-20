@@ -51,6 +51,25 @@ export default class App extends React.Component {
     this.setState({ view });
   }
 
+  updateItem(itemIdWithQuantity) {
+    const req = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(itemIdWithQuantity)
+    };
+    fetch('/api/cart', req)
+      .then(res => res.json())
+      .then(updatedItem => {
+        const cart = this.state.cart.map(cur => {
+          if (cur.cartItemId === updatedItem.cartItemId) {
+            cur.quantity = updatedItem.quantity;
+          }
+          return cur;
+        });
+        this.setState({ cart });
+      }).catch(err => alert('removeItem error', err));
+  }
+
   removeItem(cartItemId) {
     const req = {
       method: 'DELETE',
@@ -108,7 +127,8 @@ export default class App extends React.Component {
           <Route path="/cart"
             render={props => <CartSummary {...props}
               cart={this.state.cart}
-              removeItem={this.removeItem.bind(this)} />} />
+              removeItem={this.removeItem.bind(this)}
+              updateItem={this.updateItem.bind(this)} />} />
           <Route path="/checkout"
             render={props => <CheckoutForm {...props}
               cart={this.state.cart}

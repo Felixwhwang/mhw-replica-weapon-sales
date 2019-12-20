@@ -84,7 +84,7 @@ export default class CheckoutForm extends React.Component {
             </div>
           </form>
         </div>
-        <Footer />
+        <Footer bottom='fixed-bottom'/>
       </div>
     );
   }
