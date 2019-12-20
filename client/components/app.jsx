@@ -11,10 +11,6 @@ export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      view: {
-        name: 'catalog',
-        params: {}
-      },
       cart: []
     };
   }
@@ -55,6 +51,26 @@ export default class App extends React.Component {
     this.setState({ view });
   }
 
+  removeItem(cartItemId) {
+    const req = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(cartItemId)
+    };
+    fetch('/api/cart', req)
+      .then(res => res.json())
+      .then(cartItemId => {
+        const { cart } = this.state;
+        for (let index = 0; index < cart.length; index++) {
+          if (cart[index].cartItemId === cartItemId) {
+            cart.splice(index, 1);
+            break;
+          }
+        }
+        this.setState({ cart });
+      }).catch(err => alert('removeItem error', err));
+  }
+
   addToCart(product) {
     const req = {
       method: 'POST',
@@ -91,7 +107,8 @@ export default class App extends React.Component {
               addToCart={this.addToCart.bind(this)} />} />
           <Route path="/cart"
             render={props => <CartSummary {...props}
-              cart={this.state.cart} />} />
+              cart={this.state.cart}
+              removeItem={this.removeItem.bind(this)} />} />
           <Route path="/checkout"
             render={props => <CheckoutForm {...props}
               cart={this.state.cart}
