@@ -75,6 +75,10 @@ a, a:hover {
   height: 30vh;
 }
 
+.item-summary {
+  object-fit: contain;
+}
+
 .pointer {
   cursor: pointer;
 }
@@ -115,6 +119,9 @@ a, a:hover {
     font-size: 1.7em;
   }
   .form-img {
-    height: 24vh;
+    height: 150px;
+  }
+  .item-summary {
+    height: 80px;
   }
 }

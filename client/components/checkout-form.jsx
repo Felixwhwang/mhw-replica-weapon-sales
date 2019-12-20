@@ -6,7 +6,7 @@ class OrderDetails extends React.Component {
   render() {
     return (
       <div className="row bg-white">
-        <img src={this.props.item.image} className="col-3" />
+        <img src={this.props.item.image} className="col-3 item-summary" />
         <div className="col-9">
           <div>{this.props.item.name}</div>
           <div>Item Quantity: {this.props.item.quantity}</div>
