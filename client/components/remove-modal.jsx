@@ -19,13 +19,24 @@ export default class RemoveModal extends React.Component {
               </button>
             </div>
             <div className="modal-body">
-
+              <div className="row">
+                <img src={this.props.removeItem.image} className="col-5"/>
+                <div className="col-7">
+                  <div>{this.props.removeItem.name}</div>
+                  <label className="text-muted">${(this.props.removeItem.price / 100).toFixed(2)}</label>
+                  <p>{this.props.removeItem.shortDescription}</p>
+                  <div>Item Quantity: {this.props.removeItem.quantity}</div>
+                </div>
+              </div>
             </div>
             <div className="modal-footer">
               <button
                 type="button"
                 className="btn btn-danger"
-                data-dismiss='modal'>Remove
+                data-dismiss='modal'
+                onClick={() => this.props.deleteItem(
+                  { cartItemId: this.props.removeItem.cartItemId }
+                )}>Remove
               </button>
               <button
                 type="button"

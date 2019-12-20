@@ -13,10 +13,15 @@ class CartSummaryItems extends React.Component {
 
   quantityOnChange(event) {
     const qty = event.target.value;
-    if (qty > 0 && qty.indexOf('.') === -1) {
+    if (qty > 19 && qty.indexOf('.') === -1) {
+      this.setState({
+        quantity: 19,
+        qtyValidation: 'Ask Wenhao for wholesales if more than 19, Cheaper!'
+      });
+    } else if (qty > 0 && qty.indexOf('.') === -1) {
       this.setState({
         quantity: qty,
-        qtyValidation: ' '
+        qtyValidation: ''
       });
     } else {
       this.setState({
@@ -41,14 +46,16 @@ class CartSummaryItems extends React.Component {
             value={this.state.quantity}
             onChange={this.quantityOnChange.bind(this)} />
           <div className="text-danger">{this.state.qtyValidation}&nbsp;</div>
-          <button
-            type="button"
-            className="btn btn-danger"
-            data-toggle="modal"
-            data-target="#removemodal"
-            data-backdrop="static"
-            data-keyboard="false">Remove
-          </button>
+          <Link to={`/cart?${this.props.item.cartItemId}`}>
+            <button
+              type="button"
+              className="btn btn-danger"
+              data-toggle="modal"
+              data-target="#removemodal"
+              data-backdrop="static"
+              data-keyboard="false">Remove
+            </button>
+          </Link>
         </div>
       </div>
     );
@@ -58,6 +65,15 @@ class CartSummaryItems extends React.Component {
 export default class CartSummary extends React.Component {
   handleClickOrder() {
     this.props.history.push('/checkout');
+  }
+
+  getRemoveItem(cartItemId) {
+    for (let index = 0; index < this.props.cart.length; index++) {
+      if (this.props.cart[index].cartItemId === parseInt(cartItemId)) {
+        return this.props.cart[index];
+      }
+    }
+    return {};
   }
 
   render() {
@@ -85,7 +101,9 @@ export default class CartSummary extends React.Component {
             onClick={this.handleClickOrder.bind(this)}>Check Out
           </button>
         </div>
-        <RemoveModal />
+        <RemoveModal
+          deleteItem={this.props.removeItem}
+          removeItem={this.getRemoveItem(this.props.location.search.split('?').join(''))}/>
       </div>
     );
   }

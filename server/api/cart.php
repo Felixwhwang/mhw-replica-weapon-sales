@@ -3,6 +3,16 @@
 $link = get_db_link();
 $cartIdinSession = $_SESSION['cart_id'];
 
+if ($request['method'] === 'DELETE') {
+  $cartItemId = intval($request['body']['cartItemId']);
+  $sqlDeleteItem =
+  "DELETE FROM cartItems
+   WHERE cartItemId = $cartItemId";
+  $link->query($sqlDeleteItem);
+  $response['body'] = $cartItemId;
+  send($response);
+}
+
 if($request['method'] === 'GET') {
   if(isset($cartIdinSession)) {
     $sqlCartItems =
