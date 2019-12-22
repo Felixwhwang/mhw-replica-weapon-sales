@@ -21,31 +21,45 @@ export default class CheckoutForm extends React.Component {
   constructor() {
     super();
     this.state = {
-      name: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      address: '',
+      city: '',
+      usState: '',
+      zipcode: '',
+      country: 'US',
+      nameOnCard: '',
       creditCard: '',
-      shippingAddress: ''
+      expMonth: '',
+      expYear: '',
+      cvv: ''
     };
   }
 
   handleClickOrder(event) {
     event.preventDefault();
-    const checkoutInfo = {
-      name: this.state.name,
-      creditCard: this.state.creditCard,
-      shippingAddress: this.state.shippingAddress
-    };
-    this.props.placeOrder(checkoutInfo);
-    this.props.history.push('/');
+    // const checkoutInfo = {
+    //   name: this.state.name,
+    //   creditCard: this.state.creditCard,
+    //   shippingAddress: this.state.shippingAddress
+    // };
+    // this.props.placeOrder(checkoutInfo);
+    // this.props.history.push('/');
   }
 
   handleOnChange(event) {
-    if (event.target.name === 'creditCard') {
+    const name = event.target.name;
+    if (name === 'country') return;
+    if (name === 'creditCard' || name === 'phone' || name === 'zipcode' ||
+    name === 'cvv') {
       if (parseInt(event.target.value.slice(-1)) > 0 ||
       event.target.value === '') {
-        this.setState({ [event.target.name]: event.target.value });
+        this.setState({ [name]: event.target.value });
       }
     } else {
-      this.setState({ [event.target.name]: event.target.value });
+      this.setState({ [name]: event.target.value });
     }
   }
 
@@ -56,7 +70,8 @@ export default class CheckoutForm extends React.Component {
       <div>
         <div className="container basic-bg p-3">
           <h2>Check Out</h2>
-          <p className="text-danger">*Please do NOT enter any real personal information! This form is for demo purposes ONLY.</p>
+          <p className="text-danger">*Please do NOT enter any real personal
+          information! This form is for demo purposes ONLY.</p>
           <div className="row">
             <div className="col-12 col-md-5 p-3">
               <h4>Order Summary</h4>
@@ -67,19 +82,161 @@ export default class CheckoutForm extends React.Component {
               </div>
               <h4>Order Total: ${(total / 100).toFixed(2)}</h4>
             </div>
+
             <form
               onSubmit={this.handleClickOrder.bind(this)}
               className="col-12 col-md-7 form-view">
               <div className="form-group">
-                <label>Name</label>
+                <h3>Shipping Info</h3>
+              </div>
+              <div className="form-group">
+                <div className="row">
+                  <div className="col-6">
+                    <label>First Name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="First Name"
+                      autoComplete="off"
+                      name="firstName"
+                      minLength="2"
+                      maxLength="32"
+                      value={this.state.firstName}
+                      onChange={this.handleOnChange.bind(this)}
+                      required />
+                  </div>
+                  <div className="col-6">
+                    <label>Last Name</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Last Name"
+                      autoComplete="off"
+                      name="lastName"
+                      minLength="2"
+                      maxLength="32"
+                      value={this.state.lastName}
+                      onChange={this.handleOnChange.bind(this)}
+                      required />
+                  </div>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <div className="row">
+                  <div className="col-6">
+                    <label>Email</label>
+                    <input
+                      type="email"
+                      className="form-control"
+                      placeholder="Email"
+                      autoComplete="off"
+                      name="email"
+                      minLength="6"
+                      maxLength="254"
+                      value={this.state.email}
+                      onChange={this.handleOnChange.bind(this)}
+                      required />
+                  </div>
+                  <div className="col-6">
+                    <label>Phone Number</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Phone Number"
+                      autoComplete="off"
+                      name="phone"
+                      minLength="10"
+                      maxLength="10"
+                      value={this.state.phone}
+                      onChange={this.handleOnChange.bind(this)}/>
+                  </div>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label>Shipping Address</label>
+                <textarea
+                  className="form-control resize-none"
+                  rows="1"
+                  placeholder="Shipping Address"
+                  autoComplete="off"
+                  name="address"
+                  minLength="6"
+                  maxLength="84"
+                  value={this.state.address}
+                  onChange={this.handleOnChange.bind(this)}
+                  required />
+              </div>
+
+              <div className="form-group">
+                <div className="row">
+                  <div className="col-4">
+                    <label>City</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="City"
+                      autoComplete="off"
+                      name="city"
+                      minLength="3"
+                      maxLength="50"
+                      value={this.state.city}
+                      onChange={this.handleOnChange.bind(this)} />
+                  </div>
+                  <div className="col-2">
+                    <label>State</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="CA"
+                      autoComplete="off"
+                      name="usState"
+                      minLength="2"
+                      maxLength="2"
+                      value={this.state.usState}
+                      onChange={this.handleOnChange.bind(this)} />
+                  </div>
+                  <div className="col-4">
+                    <label>Zip Code</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Zipcode"
+                      autoComplete="off"
+                      name="zipcode"
+                      minLength="5"
+                      maxLength="5"
+                      value={this.state.zipcode}
+                      onChange={this.handleOnChange.bind(this)} />
+                  </div>
+                  <div className="col-2">
+                    <label>Country</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="US"
+                      autoComplete="off"
+                      name="country"
+                      value={this.state.country}
+                      onChange={this.handleOnChange.bind(this)} />
+                  </div>
+                </div>
+              </div>
+
+              <h3>Payment Info</h3>
+              <div className="form-group">
+                <label>Name On Card</label>
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="name"
+                  placeholder="Full Name"
                   autoComplete="off"
-                  name="name"
-                  value={this.state.name}
+                  name="nameOnCard"
+                  value={this.state.nameOnCard}
                   onChange={this.handleOnChange.bind(this)}
+                  minLength='5'
+                  maxLength='65'
                   required />
               </div>
               <div className="form-group">
@@ -96,17 +253,54 @@ export default class CheckoutForm extends React.Component {
                   maxLength='16'
                   required />
               </div>
+              <label>Expiration Date</label>
               <div className="form-group">
-                <label>Shipping Address</label>
-                <textarea
-                  className="form-control resize-none"
-                  rows="5" placeholder="shipping address"
-                  autoComplete="off"
-                  name="shippingAddress"
-                  value={this.state.shippingAddress}
-                  onChange={this.handleOnChange.bind(this)}
-                  required />
+                <div className="row">
+                  <div className="col-2">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="MM"
+                      autoComplete="off"
+                      name="expMonth"
+                      value={this.state.expMonth}
+                      onChange={this.handleOnChange.bind(this)}
+                      minLength='2'
+                      maxLength='2'
+                      required />
+                  </div>
+                  <div className="col-0.1">
+                    <div className="slash">/</div>
+                  </div>
+                  <div className="col-2">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="YY"
+                      autoComplete="off"
+                      name="expYear"
+                      value={this.state.expYear}
+                      onChange={this.handleOnChange.bind(this)}
+                      minLength='2'
+                      maxLength='2'
+                      required />
+                  </div>
+                  <div className="col-2">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="CVV"
+                      autoComplete="off"
+                      name="cvv"
+                      value={this.state.cvv}
+                      onChange={this.handleOnChange.bind(this)}
+                      minLength='3'
+                      maxLength='3'
+                      required />
+                  </div>
+                </div>
               </div>
+
               <div className="d-flex justify-content-between align-items-center">
                 <Link to={'/'}>
                   <div className="pointer mb-2 text-muted">Continue shopping</div>
@@ -117,7 +311,6 @@ export default class CheckoutForm extends React.Component {
                   Place Order
                 </button>
               </div>
-              <div className="form-img"></div>
             </form>
           </div>
         </div>

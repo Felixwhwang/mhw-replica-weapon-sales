@@ -97,30 +97,22 @@ a, a:hover {
 }
 
 .form-view {
-  height: 73vh;
+  height: 75vh;
 }
 
 .label {
   margin-bottom: 0;
 }
 
-.form-img {
-  width: 100%;
-  height: 32vh;
-  margin-top: 1vh;
-  border-radius: 10px;
-  background-image: url('./images/forge.jpeg');
-  background-size: cover;
-  background-repeat: no-repeat;
+.slash {
+  font-size: 1.4em;
 }
 
 @media only screen and (max-width: 375px) {
   .logo {
     font-size: 1.7em;
   }
-  .form-img {
-    height: 150px;
-  }
+
   .item-summary {
     height: 80px;
   }
