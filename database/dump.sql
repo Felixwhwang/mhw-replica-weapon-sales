@@ -75,7 +75,11 @@ CREATE TABLE `orders` (
   `orderId` int(11) NOT NULL AUTO_INCREMENT,
   `cartId` int(11) NOT NULL,
   `name` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nameOnCard` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `creditCard` varchar(24) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `expDate` varchar(16) COLLATE utf8mb4_unicode_ci NOT NULL,
   `shippingAddress` varchar(128) COLLATE utf8mb4_unicode_ci NOT NULL,
   `createdAt` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`orderId`)
@@ -129,4 +133,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-12-20 10:22:59
+-- Dump completed on 2019-12-22 23:16:59

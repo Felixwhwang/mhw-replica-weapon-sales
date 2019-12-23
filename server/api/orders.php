@@ -7,6 +7,10 @@ if( $request['method'] === 'POST' ) {
 
   if( $cartIdinSession ) {
     $name = $request['body']['name'];
+    $email = $request['body']['email'];
+    $phone = $request['body']['phone'];
+    $nameOnCard = $request['body']['nameOnCard'];
+    $expDate = $request['body']['expDate'];
     $creditCard = $request['body']['creditCard'];
     $shippingAddress = $request['body']['shippingAddress'];
 
@@ -22,9 +26,22 @@ if( $request['method'] === 'POST' ) {
 
     if(!$errorMessage) {
       $sqlInsertOrder =
-        "INSERT INTO orders (cartId, name, creditCard, shippingAddress, createdAt)
-         VALUES ('$cartIdinSession', '$name', '$creditCard', '$shippingAddress', CURRENT_TIMESTAMP)";
-      $link->query($sqlInsertOrder);
+        "INSERT INTO orders
+        (cartId, name, email, phone, nameOnCard,
+        creditCard, expDate, shippingAddress, createdAt)
+         VALUES ('$cartIdinSession', ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)";
+      $stmt = $link->prepare($sqlInsertOrder);
+      $stmt->bind_param(
+        "sssssss",
+        $name,
+        $email,
+        $phone,
+        $nameOnCard,
+        $creditCard,
+        $expDate,
+        $shippingAddress
+      );
+      $stmt->execute();
       $orderId = $link->insert_id;
       unset($_SESSION['cart_id']);
 
