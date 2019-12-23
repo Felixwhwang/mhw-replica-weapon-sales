@@ -53,7 +53,7 @@ export default class CheckoutForm extends React.Component {
     };
 
     this.props.placeOrder(checkoutInfo);
-    this.props.history.push('/');
+    this.props.history.push('/order-confirmation');
   }
 
   handleOnChange(event) {

@@ -6,12 +6,19 @@ import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import NotificationModal from './notification-modal';
+import OrderConfirmation from './order-confirmation';
 
 export default class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      cart: []
+      cart: [],
+      orderInfo: {
+        cart: [],
+        checkoutInfo: {
+          creditCard: ''
+        }
+      }
     };
   }
 
@@ -36,7 +43,14 @@ export default class App extends React.Component {
     fetch('/api/orders', req)
       .then(res => res.json())
       .then(checkoutInfo => {
-        // for checkoutInfo
+        const cart = [...this.state.cart];
+        this.setState({
+          cart: [],
+          orderInfo: {
+            cart,
+            checkoutInfo
+          }
+        });
       }).catch(err => alert('placeOrder error', err));
   }
 
@@ -130,6 +144,9 @@ export default class App extends React.Component {
             render={props => <CheckoutForm {...props}
               cart={this.state.cart}
               placeOrder={this.placeOrder.bind(this)} />} />
+          <Route path="/order-confirmation"
+            render={props => <OrderConfirmation {...props}
+              orderInfo={this.state.orderInfo} />} />
           <Route path="/" render={() => <div>error</div>} />
         </Switch>
         <NotificationModal />
