@@ -36,10 +36,7 @@ export default class App extends React.Component {
     fetch('/api/orders', req)
       .then(res => res.json())
       .then(checkoutInfo => {
-        this.setState({
-          view: { name: 'catalog', params: {} },
-          cart: []
-        });
+        // for checkoutInfo
       }).catch(err => alert('placeOrder error', err));
   }
 

@@ -40,13 +40,20 @@ export default class CheckoutForm extends React.Component {
 
   handleClickOrder(event) {
     event.preventDefault();
-    // const checkoutInfo = {
-    //   name: this.state.name,
-    //   creditCard: this.state.creditCard,
-    //   shippingAddress: this.state.shippingAddress
-    // };
-    // this.props.placeOrder(checkoutInfo);
-    // this.props.history.push('/');
+    const checkoutInfo = {
+      name: this.state.firstName + ' ' + this.state.lastName,
+      email: this.state.email,
+      phone: this.state.phone,
+      shippingAddress: this.state.address + ', ' + this.state.city + ', ' +
+        this.state.usState + ', ' + this.state.zipcode + ', ' +
+        this.state.country,
+      nameOnCard: this.state.nameOnCard,
+      creditCard: this.state.creditCard,
+      expDate: this.state.expMonth + '/' + this.state.expYear
+    };
+
+    this.props.placeOrder(checkoutInfo);
+    this.props.history.push('/');
   }
 
   handleOnChange(event) {
@@ -75,17 +82,49 @@ export default class CheckoutForm extends React.Component {
           <div className="row">
             <div className="col-12 col-md-5 p-3">
               <h4>Order Summary</h4>
+              <div>
+                <h5>
+                  SubTotal:
+                  <div className="d-line float-right">${(total / 100).toFixed(2)}</div>
+                </h5>
+              </div>
+              <div>
+                <h5>
+                  Shipping:
+                  <div className="d-inline float-right">Free</div>
+                </h5>
+              </div>
+              <div>
+                <h5>
+                  Taxes:
+                  <i
+                    className="ml-1 fas fa-question-circle"
+                    data-animation="true"
+                    data-toggle="tooltip"
+                    data-placement="right"
+                    title="Tax rate of 5%" />
+                  <div className="float-right d-inline">${(total * 0.05 / 100).toFixed(2)}</div>
+                </h5>
+              </div>
+              <hr />
+              <div>
+                <h5>
+                  Total:
+                  <div className="d-inline float-right">${(total * 1.05 / 100).toFixed(2)}</div>
+                </h5>
+              </div>
+              <hr />
+              <h4>Items in Cart</h4>
               <div className="container order-summary">
                 {this.props.cart.map(cur => {
                   return <OrderDetails key={cur.productId} item={cur} />;
                 })}
               </div>
-              <h4>Order Total: ${(total / 100).toFixed(2)}</h4>
             </div>
 
             <form
               onSubmit={this.handleClickOrder.bind(this)}
-              className="col-12 col-md-7 form-view">
+              className="col-12 col-md-7">
               <div className="form-group">
                 <h3>Shipping Info</h3>
               </div>
@@ -171,7 +210,7 @@ export default class CheckoutForm extends React.Component {
 
               <div className="form-group">
                 <div className="row">
-                  <div className="col-4">
+                  <div className="col-6 col-md-3">
                     <label>City</label>
                     <input
                       type="text"
@@ -184,7 +223,7 @@ export default class CheckoutForm extends React.Component {
                       value={this.state.city}
                       onChange={this.handleOnChange.bind(this)} />
                   </div>
-                  <div className="col-2">
+                  <div className="col-6 col-md-3">
                     <label>State</label>
                     <input
                       type="text"
@@ -197,7 +236,7 @@ export default class CheckoutForm extends React.Component {
                       value={this.state.usState}
                       onChange={this.handleOnChange.bind(this)} />
                   </div>
-                  <div className="col-4">
+                  <div className="col-6 col-md-3">
                     <label>Zip Code</label>
                     <input
                       type="text"
@@ -210,7 +249,7 @@ export default class CheckoutForm extends React.Component {
                       value={this.state.zipcode}
                       onChange={this.handleOnChange.bind(this)} />
                   </div>
-                  <div className="col-2">
+                  <div className="col-6 col-md-3">
                     <label>Country</label>
                     <input
                       type="text"
@@ -256,7 +295,7 @@ export default class CheckoutForm extends React.Component {
               <label>Expiration Date</label>
               <div className="form-group">
                 <div className="row">
-                  <div className="col-2">
+                  <div className="col-3">
                     <input
                       type="text"
                       className="form-control"
@@ -272,7 +311,7 @@ export default class CheckoutForm extends React.Component {
                   <div className="col-0.1">
                     <div className="slash">/</div>
                   </div>
-                  <div className="col-2">
+                  <div className="col-3">
                     <input
                       type="text"
                       className="form-control"
@@ -285,7 +324,7 @@ export default class CheckoutForm extends React.Component {
                       maxLength='2'
                       required />
                   </div>
-                  <div className="col-2">
+                  <div className="col-3">
                     <input
                       type="text"
                       className="form-control"
@@ -299,6 +338,12 @@ export default class CheckoutForm extends React.Component {
                       required />
                   </div>
                 </div>
+              </div>
+              <div className="form-check">
+                <input type="checkbox" className="form-check-input" required/>
+                <label className="form-check-label">
+                    I agree that this was not a <b>REAL</b> purchase
+                </label>
               </div>
 
               <div className="d-flex justify-content-between align-items-center">
