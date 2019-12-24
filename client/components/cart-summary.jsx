@@ -13,12 +13,7 @@ class CartSummaryItems extends React.Component {
 
   quantityOnChange(event) {
     const qty = event.target.value;
-    if (qty > 19 && qty.indexOf('.') === -1) {
-      this.setState({
-        quantity: 19,
-        qtyValidation: 'Ask Wenhao for wholesales if more than 19'
-      });
-    } else if (qty > 0 && qty.indexOf('.') === -1) {
+    if (qty > 0 && qty.indexOf('.') === -1) {
       this.setState({
         quantity: qty,
         qtyValidation: ''
@@ -37,8 +32,12 @@ class CartSummaryItems extends React.Component {
       this.state.quantity === ''
         ? 'd-none' : '';
     return (
-      <div className="row border-black mb-4 bg-white shadow-sm p-3">
-        <img src={this.props.item.image} className="col-12 col-md-5 size" />
+      <div className="row border-bottom mb-4 bg-white p-3">
+        <div className="col-12 col-md-5">
+          <Link to={`/item?${this.props.item.productId}`}>
+            <img src={this.props.item.image} className="col-12 size" />
+          </Link>
+        </div>
         <div className="col-12 col-md-7">
           <h2>{this.props.item.name}</h2>
           <label className="text-muted">${(this.props.item.price / 100).toFixed(2)}</label>
@@ -48,6 +47,7 @@ class CartSummaryItems extends React.Component {
             className="border shadow-sm input-quantity"
             type="text"
             value={this.state.quantity}
+            maxLength="9"
             onChange={this.quantityOnChange.bind(this)} />
           <div className="text-danger">{this.state.qtyValidation}&nbsp;</div>
           <Link to={`/cart?${this.props.item.cartItemId}`}>
@@ -101,16 +101,16 @@ export default class CartSummary extends React.Component {
         updateItem={this.props.updateItem} />;
     });
     return (
-      <div className="container">
+      <div className="container basic-bg mb-5">
         <Link to={'/'}>
-          <div className="pointer mb-2 text-white">{'<  '}Back to catalog</div>
+          <div className="pointer mb-2 mt-3 text-muted">{'<  '}Back to catalog</div>
         </Link>
-        <div className="my-cart">My Cart</div>
+        <h3>My Cart</h3>
         <div className="container">
           {itemRows}
         </div>
-        <div className="d-flex justify-content-between align-items-center mb-5">
-          <div className="bg-white border-black p-2">Item Total ${(total / 100).toFixed(2)}</div>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <div className="bg-white basic-bg p-2">Item Total ${(total / 100).toFixed(2)}</div>
           <button
             type="button"
             className="btn btn-primary ml-1"
