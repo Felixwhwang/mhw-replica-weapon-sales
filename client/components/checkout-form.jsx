@@ -35,7 +35,7 @@ export default class CheckoutForm extends React.Component {
       expMonth: '',
       expYear: '',
       cvv: '',
-      expirationDateCheck: ''
+      expYearCheck: ''
     };
   }
 
@@ -79,47 +79,35 @@ export default class CheckoutForm extends React.Component {
   }
 
   expYearOnChange(event) {
+    const today = new Date();
+    const toYear = parseInt(today.getFullYear().toString().slice(-2));
     if (parseInt(event.target.value.slice(-1)) >= 0 ||
       event.target.value === '') {
-      if (this.checkExpirationDate()) {
-        this.setState({ [event.target.name]: event.target.value });
+      if (parseInt(event.target.value) >= toYear) {
+        this.setState({
+          [event.target.name]: event.target.value,
+          expYearCheck: ''
+        });
       } else {
         this.setState({
           [event.target.name]: event.target.value,
-          checkExpirationDate: 'Please input correct expiration date'
+          expYearCheck: 'please input correct year'
         });
       }
     }
   }
 
   expMonthOnChange(event) {
-    // const today = new Date();
-    // const toYear = parseInt(today.getFullYear().toString().slice(-2));
-    // const toMonth = today.getMonth() + 1;
     if ((parseInt(event.target.value[0]) === 0 && event.target.value[1] !== '0') ||
       event.target.value === '') {
-      if (this.checkExpirationDate()) {
-        this.setState({ [event.target.name]: event.target.value });
-      } else {
-        this.setState({
-          [event.target.name]: event.target.value,
-          checkExpirationDate: 'Please input correct expiration date'
-        });
-      }
+      this.setState({ [event.target.name]: event.target.value });
     }
     if ((parseInt(event.target.value[0]) === 1 && !event.target.value[1]) ||
       event.target.value === '10' ||
       event.target.value === '11' ||
       event.target.value === '12' ||
       event.target.value === '') {
-      if (this.checkExpirationDate()) {
-        this.setState({ [event.target.name]: event.target.value });
-      } else {
-        this.setState({
-          [event.target.name]: event.target.value,
-          checkExpirationDate: 'Please input correct expiration date'
-        });
-      }
+      this.setState({ [event.target.name]: event.target.value });
     }
   }
 
@@ -139,6 +127,12 @@ export default class CheckoutForm extends React.Component {
   // }
 
   render() {
+    let disable = false;
+    if (this.state.expYearCheck === '') {
+      disable = false;
+    } else {
+      disable = true;
+    }
     const total = this.props.cart.reduce(
       (acc, cur) => acc + cur.price * cur.quantity, 0);
     return (
@@ -407,7 +401,7 @@ export default class CheckoutForm extends React.Component {
                   </div>
                 </div>
               </div>
-              <div>{this.state.expirationDateCheck}</div>
+              <div className="text-danger">{this.state.expYearCheck}&nbsp;</div>
               <div className="form-check">
                 <input type="checkbox" className="form-check-input" required/>
                 <label className="form-check-label">
@@ -421,7 +415,8 @@ export default class CheckoutForm extends React.Component {
                 </Link>
                 <button
                   type="submit"
-                  className="btn btn-primary">
+                  className="btn btn-primary"
+                  disabled={disable}>
                   Place Order
                 </button>
               </div>
