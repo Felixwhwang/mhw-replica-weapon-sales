@@ -66,13 +66,19 @@ export default class CheckoutForm extends React.Component {
       event.target.value === '') {
         this.setState({ [name]: event.target.value });
       }
+    } else if (name === 'usState') {
+      const letters = 'abcdefghijklmnopqrstuvwxyz';
+      if (letters.indexOf(event.target.value.slice(-1).toLowerCase()) !== -1 ||
+        event.target.value === '') {
+        this.setState({ [event.target.name]: event.target.value.toUpperCase() });
+      }
     } else {
       this.setState({ [name]: event.target.value });
     }
   }
 
   creditCardOnChange(event) {
-    if (parseInt(event.target.value.slice(-1)) >= 0 ||
+    if (parseInt(event.target.value.slice(-1)) ||
       event.target.value === '') {
       this.setState({ [event.target.name]: event.target.value });
     }
@@ -80,7 +86,7 @@ export default class CheckoutForm extends React.Component {
 
   expYearOnChange(event) {
     const today = new Date();
-    const toYear = parseInt(today.getFullYear().toString().slice(-2));
+    const toYear = parseInt(today.getFullYear().toString().slice(-2)) + 1;
     if (parseInt(event.target.value.slice(-1)) >= 0 ||
       event.target.value === '') {
       if (parseInt(event.target.value) >= toYear) {
