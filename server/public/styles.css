@@ -60,14 +60,9 @@ a, a:hover {
 }
 
 .nav-bg, .footer {
-  height: 10vh;
   background-image: url('images/fire.gif');
   background-size: cover;
   opacity: 0.9;
-}
-
-.footer {
-  height: 7vh;
 }
 
 .size {
