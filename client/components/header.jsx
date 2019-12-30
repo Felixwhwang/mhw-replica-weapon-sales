@@ -13,7 +13,7 @@ export default class Header extends React.Component {
       cartItems = `${numbers} items`;
     }
     return (
-      <nav className="navbar navbar-light bg-dark text-white mb-3 nav-bg">
+      <nav className="navbar navbar-light bg-dark text-white nav-bg">
         <div className="container">
           <Link to={'/'}>
             <div className="logo">Game Weapon Sales</div>
