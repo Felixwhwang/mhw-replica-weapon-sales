@@ -5,6 +5,25 @@ button:focus {
     outline: none;
 }
 
+* {
+    animation: fade-in .75s;
+}
+
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.center-caption {
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: initial;
+}
+
+.carousel-item {
+  height: 75vh;
+}
+
 .my-cart {
   font-size: 2em;
   color: white;
@@ -26,6 +45,23 @@ button:focus {
   border: 2px solid rgb(0, 0, 0);
   border-radius: .25rem;
   animation: blur 3s infinite;
+}
+
+.slide-1 {
+    background-image: linear-gradient(#00000050, #00000050), url('images/carousel-one.jpg');
+}
+
+.slide-2 {
+    background-image: linear-gradient(#00000050, #00000050), url('images/carousel-two.jpg');
+}
+
+.slide-3 {
+    background-image: linear-gradient(#00000050, #00000050), url('images/carousel-three.jpg');
+}
+
+.carousel-slide {
+    background-size: cover;
+    background-position: center;
 }
 
 @keyframes blur {

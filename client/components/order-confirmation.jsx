@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 
 class OrderDetails extends React.Component {
   render() {
@@ -44,10 +45,7 @@ export default class OrderConfirmation extends React.Component {
                 Taxes:
                 <i
                   className="ml-1 fas fa-question-circle"
-                  data-animation="true"
-                  data-toggle="tooltip"
-                  data-placement="right"
-                  title="Tax rate of 5%" />
+                  data-tip="Tax rate of 5%"/>
                 <div className="float-right d-inline">${(total * 0.05 / 100).toFixed(2)}</div>
               </h5>
             </div>
@@ -84,6 +82,7 @@ export default class OrderConfirmation extends React.Component {
             </Link>
           </div>
         </div>
+        <ReactTooltip />
       </div>
     );
   }
