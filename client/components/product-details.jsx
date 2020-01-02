@@ -41,7 +41,7 @@ export default class ProductDetails extends React.Component {
       options.push(<option key={index} value={index}>{index}</option>);
     }
     return (
-      <div>
+      <div className="mt-4">
         <div className="container bg-white border-black p-4">
           <Link to={'/'}>
             <div className="pointer mb-2 text-muted">{'<  '}Back to catalog</div>

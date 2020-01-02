@@ -101,7 +101,7 @@ export default class CartSummary extends React.Component {
         updateItem={this.props.updateItem} />;
     });
     return (
-      <div className="container basic-bg mb-5">
+      <div className="container basic-bg mb-5 mt-4">
         <Link to={'/'}>
           <div className="pointer mb-2 mt-3 text-muted">{'<  '}Back to catalog</div>
         </Link>
