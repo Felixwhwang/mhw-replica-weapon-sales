@@ -5,8 +5,8 @@ import ProductDetails from './product-details';
 import CartSummary from './cart-summary';
 import CheckoutForm from './checkout-form';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import NotificationModal from './notification-modal';
 import OrderConfirmation from './order-confirmation';
+import NotificationModal from './notification-modal';
 
 export default class App extends React.Component {
   constructor() {
@@ -18,12 +18,24 @@ export default class App extends React.Component {
         checkoutInfo: {
           creditCard: ''
         }
-      }
+      },
+      notification: ''
     };
   }
 
   componentDidMount() {
     this.getCartItems();
+    if (this.state.notification === '') {
+      this.notificationModal(true);
+    }
+  }
+
+  notificationModal(stats) {
+    if (stats) {
+      this.setState({ notification: <NotificationModal stats={this.notificationModal.bind(this)} /> });
+    } else {
+      this.setState({ notification: '' });
+    }
   }
 
   getCartItems() {
@@ -149,7 +161,7 @@ export default class App extends React.Component {
               orderInfo={this.state.orderInfo} />} />
           <Route path="/" render={() => <div>error</div>} />
         </Switch>
-        <NotificationModal />
+        {this.state.notification}
       </Router>
     );
   }

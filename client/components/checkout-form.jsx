@@ -128,7 +128,7 @@ export default class CheckoutForm extends React.Component {
     const total = this.props.cart.reduce(
       (acc, cur) => acc + cur.price * cur.quantity, 0);
     return (
-      <div>
+      <div className="mt-4">
         <div className="container basic-bg p-3">
           <h2>Check Out</h2>
           <p className="text-danger">*Please do NOT enter any real personal
