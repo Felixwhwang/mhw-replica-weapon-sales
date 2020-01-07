@@ -26,6 +26,11 @@ button:focus {
   margin: auto;
 }
 
+.remove-items {
+  object-fit: contain;
+  max-height: 14vh;
+}
+
 .center-caption {
     top: 50%;
     transform: translateY(-50%);
@@ -120,6 +125,7 @@ a, a:hover {
 
 .item-summary {
   object-fit: contain;
+  max-height: 8vh;
 }
 
 .pointer {
