@@ -20,7 +20,7 @@ export default class RemoveModal extends React.Component {
             </div>
             <div className="modal-body">
               <div className="row">
-                <img src={this.props.removeItem.image} className="col-5"/>
+                <img src={this.props.removeItem.image} className="col-5 remove-items"/>
                 <div className="col-7">
                   <div>{this.props.removeItem.name}</div>
                   <label className="text-muted">${(this.props.removeItem.price / 100).toFixed(2)}</label>
