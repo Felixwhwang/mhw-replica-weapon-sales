@@ -239,7 +239,8 @@ export default class CheckoutForm extends React.Component {
                       minLength="10"
                       maxLength="10"
                       value={this.state.phone}
-                      onChange={this.handleOnChange.bind(this)}/>
+                      onChange={this.handleOnChange.bind(this)}
+                      required />
                   </div>
                 </div>
               </div>
@@ -272,7 +273,8 @@ export default class CheckoutForm extends React.Component {
                       minLength="3"
                       maxLength="50"
                       value={this.state.city}
-                      onChange={this.handleOnChange.bind(this)} />
+                      onChange={this.handleOnChange.bind(this)}
+                      required />
                   </div>
                   <div className="col-6 col-md-3">
                     <label>State</label>
@@ -285,7 +287,8 @@ export default class CheckoutForm extends React.Component {
                       minLength="2"
                       maxLength="2"
                       value={this.state.usState}
-                      onChange={this.handleOnChange.bind(this)} />
+                      onChange={this.handleOnChange.bind(this)}
+                      required />
                   </div>
                   <div className="col-6 col-md-3">
                     <label>Zip Code</label>
@@ -298,7 +301,8 @@ export default class CheckoutForm extends React.Component {
                       minLength="5"
                       maxLength="5"
                       value={this.state.zipcode}
-                      onChange={this.handleOnChange.bind(this)} />
+                      onChange={this.handleOnChange.bind(this)}
+                      required />
                   </div>
                   <div className="col-6 col-md-3">
                     <label>Country</label>
@@ -309,7 +313,8 @@ export default class CheckoutForm extends React.Component {
                       autoComplete="off"
                       name="country"
                       value={this.state.country}
-                      onChange={this.handleOnChange.bind(this)} />
+                      onChange={this.handleOnChange.bind(this)}
+                      required />
                   </div>
                 </div>
               </div>
